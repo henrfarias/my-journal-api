@@ -9,3 +9,43 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id        String    @id @default(uuid())
+  name      String
+  nickname  String    @unique
+  password  String
+  birthDate DateTime? @map("birth_date")
+  gender    Gender?
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  Tag       Tag[]
+  Thought   Thought[]
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  NOT_QUALIFIED
+}
+
+model Tag {
+  id        String   @id @default(uuid())
+  name      String
+  authorId  String   @map("author_id")
+  hexColor  String   @map("hex_color")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  author    User     @relation(fields: [authorId], references: [id])
+}
+
+model Thought {
+  id       String @id @default(uuid())
+  body     String
+  authorId String @map("author_id")
+  tagId String @map("tag_id")
+  attachments String?
+  createAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  author   User   @relation(fields: [authorId], references: [id])
+}
