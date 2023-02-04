@@ -101,9 +101,10 @@
     "skipLibCheck": true,                             /* Skip type checking all .d.ts files. */
     "paths": {
       "@domain/*": ["src/domain/*"],
-      "@web/*": ["src/__www/*"]
+      "@web/*": ["src/__www/*"],
+      "@business/*": ["src/business/*"],
     }                                 
   },
-  "include": ["src", "__tests__"],
+  "include": ["src", "__tests__", "shared"],
   "exclude": ["node_modules", "db-data", "dist"]
 }

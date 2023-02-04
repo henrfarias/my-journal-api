@@ -8,8 +8,8 @@ export interface UserEntity {
   name: string
   nickname: string
   password: string
-  birth_date?: Date
-  gender?: Gender
+  birthDate: Date | null
+  gender: `${Gender}` | null
 }
 
 export enum Gender {
@@ -20,10 +20,26 @@ export enum Gender {
 
 @injectable()
 export class User {
+  public data: UserEntity | null
+  private defaultError = new Error
+
   constructor(
     @inject(EncryptServiceToken) private encryptService: EncryptService
-  ) {}
-  private encode(txt: string): string {
-    return this.encryptService.encode(txt)
+  ) {
+    this.data = null
+    this.defaultError = new Error('There is no user setted')
+  }
+  public set(user: UserEntity): void {
+    this.data = user
+  }
+
+  public get(): UserEntity {
+    if (this.data === null) throw this.defaultError
+    return this.data
+  }
+
+  public encodePassword(): void {
+    if (this.data === null) throw this.defaultError
+    this.data.password = this.encryptService.encode(this.data.password)
   }
 }
