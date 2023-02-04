@@ -1,6 +1,6 @@
 import { Express } from 'express'
-import authRoutes from '../routes/authRoutes'
-import publicRoutes from '../routes/publicRoutes'
+import authRoutes from '../routes/auth-routes'
+import publicRoutes from '../routes/public-routes'
 
 export default function applyRoutes(app: Express): void {
   app.use('/', publicRoutes)

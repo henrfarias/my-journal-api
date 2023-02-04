@@ -2,9 +2,10 @@ import { inject, injectable } from 'inversify'
 import {
   EncryptService,
   EncryptServiceToken
-} from '../service/interfaces/encrypt'
+} from '../service/interfaces/encrypt.service'
 
 export interface UserEntity {
+  id?: string
   name: string
   nickname: string
   password: string
@@ -21,7 +22,7 @@ export enum Gender {
 @injectable()
 export class User {
   public data: UserEntity | null
-  private defaultError = new Error
+  private defaultError = new Error()
 
   constructor(
     @inject(EncryptServiceToken) private encryptService: EncryptService
@@ -41,5 +42,16 @@ export class User {
   public encodePassword(): void {
     if (this.data === null) throw this.defaultError
     this.data.password = this.encryptService.encode(this.data.password)
+  }
+
+  public comparePassword(password: string): boolean {
+    if (this.data === null) throw this.defaultError
+    return this.encryptService.compare(this.data.password, password)
+  }
+
+  public generateToken(): string {
+    if (this.data === null) throw this.defaultError
+    if (!this.data.id) throw new Error('User without id')
+    return ''
   }
 }

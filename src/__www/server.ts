@@ -1,8 +1,8 @@
 import 'reflect-metadata'
 import express from 'express'
 import { config } from 'dotenv'
-import setupApp from './config/setupApp'
-import setupRoutes from './config/setupRoutes'
+import setupApp from './config/setup-app'
+import setupRoutes from './config/setup-routes'
 config()
 
 const app = express()
