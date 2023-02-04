@@ -24,14 +24,24 @@ export class LoginUseCase implements Usecase<InputLoginDTO, OutputLoginDTO> {
   }
 
   async exec(input: InputLoginDTO): Promise<OutputLoginDTO> {
-    const userData = await this.userRepository.findBy(
-      'nickname',
-      input.nickname
-    )
-    if (!userData) return left(this.INVALID_LOGIN)
-    this.user.set(userData)
-    const isCorrectPassword = this.user.comparePassword(input.password)
-    if (!isCorrectPassword) return left(this.INVALID_LOGIN)
-    return right({ token: '' })
+    try {
+      const userData = await this.userRepository.findBy(
+        'nickname',
+        input.nickname
+      )
+      if (!userData) return left(this.INVALID_LOGIN)
+      this.user.set(userData)
+      const isCorrectPassword = this.user.comparePassword(input.password)
+      if (!isCorrectPassword) return left(this.INVALID_LOGIN)
+      const token = this.user.generateToken()
+      return right({ token })
+    } catch (err) {
+      console.log(err)
+      return left({
+        message:
+          'Estamos com algum problema para fazer o login. Por favor, tente mais tarde.',
+        statusCode: 500
+      })
+    }
   }
 }

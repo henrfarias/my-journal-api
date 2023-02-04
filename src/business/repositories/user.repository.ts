@@ -3,7 +3,7 @@ import { UserEntity } from '@domain/entity/user'
 
 export const UserRepositoryToken = Symbol.for('UserRepository')
 
-type FindByOptions = keyof Pick<UserEntity, 'name' | 'nickname'>
+export type FindByOptions = keyof Pick<UserEntity, 'name' | 'nickname'>
 
 export interface UserRepository {
   register(input: InputRegisterDTO): Promise<UserEntity>

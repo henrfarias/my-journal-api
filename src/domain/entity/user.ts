@@ -1,3 +1,7 @@
+import {
+  TokenService,
+  TokenServiceToken
+} from '@domain/service/interfaces/token.service'
 import { inject, injectable } from 'inversify'
 import {
   EncryptService,
@@ -25,7 +29,8 @@ export class User {
   private defaultError = new Error()
 
   constructor(
-    @inject(EncryptServiceToken) private encryptService: EncryptService
+    @inject(EncryptServiceToken) private encryptService: EncryptService,
+    @inject(TokenServiceToken) private tokenService: TokenService
   ) {
     this.data = null
     this.defaultError = new Error('There is no user setted')
@@ -52,6 +57,9 @@ export class User {
   public generateToken(): string {
     if (this.data === null) throw this.defaultError
     if (!this.data.id) throw new Error('User without id')
-    return ''
+    return this.tokenService.sign({
+      id: this.data.id,
+      nickname: this.data.nickname
+    })
   }
 }
