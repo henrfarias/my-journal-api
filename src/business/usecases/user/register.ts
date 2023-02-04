@@ -22,6 +22,14 @@ export class RegisterUserUseCase
 
   async exec(input: InputRegisterDTO): Promise<OutputRegisterDTO> {
     try {
+      const IsUserAlreadyExists = await this.userRepository.IsAlreadyExists(
+        input.nickname
+      )
+      if (IsUserAlreadyExists)
+        return left({
+          message: 'Este nickname já existe. Por favor, escolha outro',
+          statusCode: 400
+        })
       this.user.set(input)
       this.user.encodePassword()
       await this.userRepository.register(this.user.get())
@@ -29,7 +37,7 @@ export class RegisterUserUseCase
     } catch (err) {
       console.log(err)
       return left({
-        message: 'Something wrong happened in user registration',
+        message: 'Algo de errado aconteceu no cadastro do usuário',
         statusCode: 500
       })
     }

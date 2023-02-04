@@ -15,4 +15,9 @@ export class PrismaUserRepository implements UserRepository {
   async register(input: InputRegisterDTO): Promise<UserEntity> {
     return this.prisma.user.create({ data: input })
   }
+
+  async IsAlreadyExists(nickname: string): Promise<boolean> {
+    const user = this.prisma.user.findFirst({ where: { nickname } })
+    return !!user
+  }
 }

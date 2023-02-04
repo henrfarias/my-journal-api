@@ -6,7 +6,9 @@ export const httpHandler = (controller: Controller): Handler => {
     const input = req.body
     const result = await controller.run(input)
     if (result.isLeft()) {
-      res.status(result.value.statusCode).json(result.value.message)
+      res
+        .status(result.value.statusCode)
+        .json({ message: result.value.message })
       return
     }
     res.status(result.value.statusCode).json(result.value.data)

@@ -5,4 +5,5 @@ export const UserRepositoryToken = Symbol.for('UserRepository')
 
 export interface UserRepository {
   register(input: InputRegisterDTO): Promise<UserEntity>
+  IsAlreadyExists(nickname: string): Promise<boolean> 
 }
