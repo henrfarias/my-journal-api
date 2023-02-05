@@ -1,5 +1,6 @@
 export interface Tag {
+  id?: string
   name: string
   authorId: string
-  hex_color: string
+  hexColor: string
 }

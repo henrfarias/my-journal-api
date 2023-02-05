@@ -25,7 +25,8 @@ const joinRequest = (req: Request): { [key: string]: any } => {
   return {
     ...req.body,
     ...req.params,
-    ...req.query
+    ...req.query,
+    user: req.user
   }
 }
 

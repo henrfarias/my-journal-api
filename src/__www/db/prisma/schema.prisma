@@ -30,22 +30,24 @@ enum Gender {
 }
 
 model Tag {
-  id        String   @id @default(uuid())
+  id        String    @id @default(uuid())
   name      String
-  authorId  String   @map("author_id")
-  hexColor  String   @map("hex_color")
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-  author    User     @relation(fields: [authorId], references: [id])
+  authorId  String    @map("author_id")
+  hexColor  String    @map("hex_color")
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  author    User      @relation(fields: [authorId], references: [id])
+  Thought   Thought[]
 }
 
 model Thought {
-  id       String @id @default(uuid())
-  body     String
-  authorId String @map("author_id")
-  tagId String @map("tag_id")
+  id          String   @id @default(uuid())
+  body        String
+  authorId    String   @map("author_id")
+  tagId       String?  @map("tag_id")
   attachments String?
-  createAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-  author   User   @relation(fields: [authorId], references: [id])
+  createAt    DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  author      User     @relation(fields: [authorId], references: [id])
+  tag         Tag?     @relation(fields: [tagId], references: [id])
 }
