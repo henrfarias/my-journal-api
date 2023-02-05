@@ -37,6 +37,7 @@ export class PostThoughtUseCase
           tagId = existentTag.id as string
         }
       }
+      // TODO: Adicionar persistencia de arquivos (Attachments)
       await this.thoughtRepository.create({
         body: input.body,
         authorId: input.user.id,

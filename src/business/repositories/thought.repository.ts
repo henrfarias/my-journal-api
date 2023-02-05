@@ -11,9 +11,12 @@ export interface ListOptions {
   tagFilter?: string
 }
 
+export type DataToUpdate = Partial<Pick<Thought, 'body' | 'tagId' | 'attachments'>>
+
 export interface ThoughtRepository {
   create(input: Thought): Promise<Thought>
   list(input: ListOptions): Promise<Array<Thought & { tag: Tag | null }>>
   delete(thoughtId: string): Promise<{ id: string }>
   findBy(thoughtId: string, authorId: string): Promise<Thought | null>
+  update(thoughtId: string, data: DataToUpdate): Promise<Thought>
 }

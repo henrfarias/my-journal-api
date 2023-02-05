@@ -1,6 +1,7 @@
 import { DeleteThoughtUseCase } from '@business/usecases/thought/delete'
 import { ListThoughtsUseCase } from '@business/usecases/thought/list'
 import { PostThoughtUseCase } from '@business/usecases/thought/post'
+import { UpdateThoughtUseCase } from '@business/usecases/thought/update'
 import { LoginUseCase } from '@business/usecases/user/login'
 import { RegisterUserUseCase } from '@business/usecases/user/register'
 import { ContainerModule, interfaces } from 'inversify'
@@ -14,4 +15,5 @@ export const usecaseModule = new ContainerModule((bind: interfaces.Bind) => {
   bind(PostThoughtUseCase).toSelf()
   bind(ListThoughtsUseCase).toSelf()
   bind(DeleteThoughtUseCase).toSelf()
+  bind(UpdateThoughtUseCase).toSelf()
 })

@@ -44,4 +44,11 @@ export class PrismaThoughtRepository implements ThoughtRepository {
       select: { id: true }
     })
   }
+
+  update(
+    thoughtId: string,
+    data: Partial<Pick<Thought, 'body' | 'attachments' | 'tagId'>>
+  ): Promise<Thought> {
+    return this.prisma.thought.update({ where: { id: thoughtId }, data })
+  }
 }
