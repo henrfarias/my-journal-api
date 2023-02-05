@@ -1,3 +1,4 @@
+import { DeleteThoughtController } from '@web/controllers/thought/delete.controller'
 import { ListThoughtsController } from '@web/controllers/thought/list.controller'
 import { PostThoughtController } from '@web/controllers/thought/post.controller'
 import { LoginController } from '@web/controllers/user/login.controller'
@@ -12,4 +13,5 @@ export const controllerModule = new ContainerModule((bind: interfaces.Bind) => {
   // Thoughts
   bind(PostThoughtController).toSelf()
   bind(ListThoughtsController).toSelf()
+  bind(DeleteThoughtController).toSelf()
 })

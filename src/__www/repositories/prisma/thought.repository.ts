@@ -29,4 +29,19 @@ export class PrismaThoughtRepository implements ThoughtRepository {
       take: input.limit
     })
   }
+
+  async findBy(thoughtId: string, authorId: string): Promise<Thought | null> {
+    return this.prisma.thought.findFirst({
+      where: {
+        AND: [{ id: thoughtId }, { authorId }]
+      }
+    })
+  }
+
+  async delete(thoughtId: string): Promise<{ id: string }> {
+    return this.prisma.thought.delete({
+      where: { id: thoughtId },
+      select: { id: true }
+    })
+  }
 }
