@@ -1,5 +1,10 @@
 export const TokenServiceToken = Symbol.for('TokenService')
 
+export interface Payload {
+  id: string
+  nickname: string
+}
 export interface TokenService {
-  sign(payload: { nickname: string; id: string }): string
+  sign(payload: Payload): string
+  verify(token: string): Payload | null
 }
