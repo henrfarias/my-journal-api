@@ -1,5 +1,5 @@
 import { InputPostDTO } from '@business/usecases/interfaces/dto/thought/post.dto'
-import { PostThoughtUseCase } from '@business/usecases/thought/postUseCase'
+import { PostThoughtUseCase } from '@business/usecases/thought/post'
 import { inject, injectable } from 'inversify'
 import { left, right } from 'shared/either'
 import { Controller, ControllerResponse } from '../interfaces/controller'
