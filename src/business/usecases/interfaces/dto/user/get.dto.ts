@@ -7,4 +7,4 @@ export interface InputGetUserDTO {
   user: Payload
 }
 
-export type OutputGetUserDTO = Either<IError, UserEntity>
+export type OutputGetUserDTO = Either<IError, Omit<UserEntity, 'password'>>

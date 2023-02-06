@@ -23,7 +23,14 @@ export class GetUserUseCase
       const user = await this.userRepository.findBy('id', input.user.id)
       if (!user)
         return left({ message: 'Usuário não encontrado...', statusCode: 404 })
-      return right(user)
+      const data = {
+        id: user.id,
+        name: user.name,
+        nickname: user.nickname,
+        gender: user.gender,
+        birthDate: user.birthDate
+      }
+      return right(data)
     } catch (err) {
       console.log(err)
       return left({
