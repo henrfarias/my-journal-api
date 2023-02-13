@@ -25,6 +25,7 @@ export class PrismaThoughtRepository implements ThoughtRepository {
         ...(input?.tagFilter && { tag: { id: input.tagFilter } })
       },
       include: { tag: true },
+      orderBy: { createAt: 'desc' },
       skip: (input.page - 1) * input.limit,
       take: input.limit
     })
