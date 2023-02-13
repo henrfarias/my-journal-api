@@ -23,9 +23,8 @@ export class PrismaTagRepository implements TagRepository {
     return this.prisma.tag.findFirst({ where: { [by]: value } })
   }
 
-  async list(authorId: string): Promise<ListResponse> {
+  async list(_authorId: string): Promise<ListResponse> {
     return this.prisma.tag.findMany({
-      where: { authorId },
       select: {
         id: true,
         name: true,
